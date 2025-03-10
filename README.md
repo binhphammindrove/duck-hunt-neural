@@ -2,7 +2,7 @@
 
 # EMG and IMU Mouse Control
 
-This project is a snippet from my YouTube video on basic EMG development. By using this with a MindRove Arb device, you can control your mouse cursor using muscle contractions and perform left clicks by flexing your arm muscle.
+This project is a snippet from my YouTube video on basic EMG development. By using this with a [**MindRove Arb**](https://mindrove.com/armband/) device, you can control your mouse cursor using muscle contractions and perform left clicks by flexing your arm muscle.
 
 This setup is perfect for demonstrating unique interactions, such as playing Duck Hunt or other simple mouse-controlled games. For advanced gesture recognition, consider exploring [**NaviFlame**](https://github.com/MindRove/NaviFlame), which can detect up to seven distinct gestures.
 
@@ -38,4 +38,4 @@ poetry run python -m mindrove_armband
 
 ## Credits
 
-Special thanks to **Daniel The Fox** for creating [Duck Hunt Remastered](https://danielthefox.itch.io/duck-hunt-remastered). This project was inspired by the idea that a modernized Duck Hunt deserves an equally innovative control interface.
+Special thanks to **Daniel The Fox** for creating [Duck Hunt Remastered](https://danielthefox.itch.io/duck-hunt-remastered). This project was done with the thought that by a modernized Duck Hunt deserves an equally innovative control interface.
