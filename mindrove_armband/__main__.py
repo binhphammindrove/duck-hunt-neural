@@ -33,28 +33,35 @@ emg_ch5_processor = WindowProcessor(sampling_rate, 100, 0)
 emg_ch6_processor = WindowProcessor(sampling_rate, 100, 0)
 emg_ch7_processor = WindowProcessor(sampling_rate, 100, 0)
 
-#
+# Init secondary signal processors
 norm_processor = WindowProcessor(sampling_rate, 1000, 999)
 
-hid.FAILSAFE = False
+# Set HID parameters
+hid.FAILSAFE = False # Turn off disable mouse when at corner of screen
 
+
+# Simple function to get position displacement from gyro data
 def position_filter(sample: float):
     if sample < 2 and sample > -2:
         return 0
     
     return sample / sampling_rate * 1500
 
+# Plotting
 fig, ax = plt.subplots()     
 
 # Main loop
 while True:
     if board_shim.get_board_data_count() > 0:
+        # Get one sample from current board buffer
         data = board_shim.get_current_board_data(1)
 
+        # Extract data
         emg_data = data[emg_channels]
         accel_data = data[accel_channels]
         gyro_data = data[gyro_channels]
 
+        # Add data to processor
         gyro_x_processor.add_sample(gyro_data[2])
         gyro_y_processor.add_sample(gyro_data[1])
         emg_ch0_processor.add_sample(emg_data[0])
@@ -66,6 +73,7 @@ while True:
         emg_ch6_processor.add_sample(emg_data[6])
         emg_ch7_processor.add_sample(emg_data[7])
 
+        # Mouse Control
         dx, dy = 0, 0
 
         if gyro_x_processor.is_window_full:
@@ -76,24 +84,17 @@ while True:
             dy = np.mean(gyro_y_processor.output_buffer)
             dy = position_filter(dy)
 
-        # Print mean gyro data
-        if emg_ch5_processor.is_window_full:
-            emg_ch5_fft = np.fft.rfft(emg_ch0_processor.output_buffer)
-            emg_ch5_fft_real = emg_ch5_fft.real[1:]
-            emg_ch5_fft_real_norm = norm(emg_ch5_fft_real)
+        # Contraction recognition
+        if emg_ch0_processor.is_window_full:
+            emg_ch0_fft = np.fft.rfft(emg_ch0_processor.output_buffer)
+            emg_ch0_fft_real = emg_ch0_fft.real[1:]
+            emg_ch0_fft_real_norm = norm(emg_ch0_fft_real)
 
-            norm_processor.add_sample(emg_ch5_fft_real_norm)
+            norm_processor.add_sample(emg_ch0_fft_real_norm)
 
-            # ax.clear()
-            # ax.plot(norm_processor.get_output_buffer())
-            # ax.set_ylim(-100, 10000)
-
-            # plt.pause(0.01)
-
-            if emg_ch5_fft_real_norm > 1500:
+            if emg_ch0_fft_real_norm > 750:
                 hid.click()
-                print("click")
 
-            hid.move(-dx, -dy)
+        hid.move(-dx, -dy)
 
             
