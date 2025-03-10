@@ -1,8 +1,10 @@
-# EMG Mouse Control
+![](./images/thumbnail_A.jpg)
 
-This project is a snippet from a YouTube video that guides users through basic EMG development. By running this script, you can control your mouse cursor using muscle contractions and perform left clicks by flexing your arm.
+# EMG and IMU Mouse Control
 
-This setup is perfect for demonstrating unique interactions, such as playing Duck Hunt or other simple mouse-controlled games. For advanced gesture recognition, consider exploring **NaviFlame**, which can detect up to seven distinct gestures.
+This project is a snippet from my YouTube video on basic EMG development. By using this with a MindRove Arb device, you can control your mouse cursor using muscle contractions and perform left clicks by flexing your arm muscle.
+
+This setup is perfect for demonstrating unique interactions, such as playing Duck Hunt or other simple mouse-controlled games. For advanced gesture recognition, consider exploring [**NaviFlame**](https://github.com/MindRove/NaviFlame), which can detect up to seven distinct gestures.
 
 ## Installation
 
@@ -11,6 +13,7 @@ This setup is perfect for demonstrating unique interactions, such as playing Duc
 - Python 3.8 or higher
 - Poetry
 - NumPy
+- Mindrove
 - PyAutoGUI
 - Matplotlib
 
